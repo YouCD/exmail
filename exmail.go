@@ -10,7 +10,7 @@ import (
 type Exmail struct {
 	endPoint             *url.URL                    `json:"end_point"`
 	token                *Token                       `json:"token"`
-	client               *http.Client                `json:"client"`
+	Client               *http.Client                `json:"client"`
 	Config               *config                     `json:"config"`
 }
 
@@ -34,7 +34,7 @@ func NewExmail(location,corpid,corpsecret string) (*Exmail,error) {
 
 	exmail := new(Exmail)
 	exmail.endPoint = u
-	exmail.client = &http.Client{}
+	exmail.Client = &http.Client{}
 	exmail.Config = &config{corpid,corpsecret}
 
 	return exmail,nil
@@ -42,7 +42,7 @@ func NewExmail(location,corpid,corpsecret string) (*Exmail,error) {
 
 func (this *Exmail)sendRequest(req *http.Request)([]byte,error){
 	req.Header.Add("Accept", "application/json")
-	resp, err := this.client.Do(req)
+	resp, err := this.Client.Do(req)
 	if err !=nil{
 		return nil,err
 	}
